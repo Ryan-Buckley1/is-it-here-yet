@@ -2,7 +2,7 @@ const { signToken } = require("../utils/auth");
 const { AuthenticationError } = require("apollo-server-express");
 
 const { User, Package } = require("../models");
-const { fedexScraper } = require("../utils/scraper");
+const { trackingScraper } = require("../utils/scraper");
 
 const resolvers = {
   Query: {
@@ -47,7 +47,7 @@ const resolvers = {
     },
     addPackage: async (parent, { trackingNumber }, context) => {
       if (context.user) {
-        const packageData = await fedexScraper(trackingNumber);
+        const packageData = await trackingScraper(trackingNumber);
         const newPackage = await Package.create(
           {
             ...packageData,
