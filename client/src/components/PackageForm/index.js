@@ -1,8 +1,10 @@
 import React, { useState } from "react";
-import { fedexScraper } from "../../../../server/utils/scraper";
+import { useMutation } from "@apollo/client";
+import { ADD_PACKAGE } from "../../utils/mutations";
 
 const PackageForm = () => {
   const [trackingState, setTrackingState] = useState("");
+  const [addPackage, { error }] = useMutation(ADD_PACKAGE);
 
   const handleChange = (event) => {
     const trackingNumber = event.target.value;
@@ -11,12 +13,11 @@ const PackageForm = () => {
   const handleFormSubmit = async (event) => {
     event.preventDefault();
     try {
-      const { data } = await fedexScraper(trackingState);
-      return data;
+      await addPackage({ variables: trackingState });
+      setTrackingState("");
     } catch (e) {
-      console.log(e);
+      console.error(e);
     }
-    setTrackingState("");
   };
   return (
     <div>
@@ -33,6 +34,7 @@ const PackageForm = () => {
           Submit
         </button>
       </form>
+      {error && <h1>Something Went wrong! </h1>}
     </div>
   );
 };

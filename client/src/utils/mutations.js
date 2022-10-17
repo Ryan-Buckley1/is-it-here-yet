@@ -24,36 +24,45 @@ export const ADD_USER = gql`
   }
 `;
 
-export const REMOVE_EVENT = gql`
-  mutation removeEvent($_id: ID!) {
-    removeEvent(_id: $_id) {
-      event {
+export const REMOVE_PACKAGE = gql`
+  mutation removePackage($_id: ID!) {
+    removePackage(_id: $_id) {
+      package {
         _id
-        name
-        location
-        date
-        requirement
-        timeStart
-        timeEnd
-        allDay
-        recurring
+        trackingNumber
+        urlToTracking
+        expectedDelDate
+        carrier
+        username
       }
     }
   }
 `;
-export const ADD_EVENT = gql`
-  mutation addBill($eventData: EventInput) {
-    addBill(eventData: $eventData) {
-      event {
+export const ADD_PACKAGE = gql`
+  mutation addPackage($trackingNumber: String!) {
+    addPackage(trackingNumber: $trackingNumber) {
+      package {
         _id
-        name
-        location
-        date
-        requirement
-        timeStart
-        timeEnd
-        allDay
-        recurring
+        trackingNumber
+        urlToTracking
+        expectedDelDate
+        carrier
+        username
+      }
+    }
+  }
+`;
+
+export const UPDATE_PACKAGE = gql`
+  mutation updatePackageInfo($_id: ID!) {
+    updatePackageInfo(_id: $_id) {
+      package {
+        _id
+        trackingNumber
+        urlToTracking
+        expectedDelDate
+        carrier
+        username
       }
     }
   }

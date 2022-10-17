@@ -45,6 +45,21 @@ const resolvers = {
       const token = signToken(user);
       return { token, user };
     },
+    updatePackageInfo: async (parent, { _id }, context) => {
+      if (context.user) {
+        const requestPackage = await Package.findById(_id);
+        const scrapedPackage = await trackingScraper(
+          requestPackage.trackingNumber
+        );
+        const updatedPackage = await Package.findByIdAndUpdate(
+          { _id: requestPackage._id },
+          { ...scrapedPackage, username: context.user.username },
+          { runValidators: true, new: true }
+        );
+        return updatedPackage;
+      }
+      throw new AuthenticationError("You need to be logged in!");
+    },
     addPackage: async (parent, { trackingNumber }, context) => {
       if (context.user) {
         const packageData = await trackingScraper(trackingNumber);
