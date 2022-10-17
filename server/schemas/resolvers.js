@@ -2,6 +2,7 @@ const { signToken } = require("../utils/auth");
 const { AuthenticationError } = require("apollo-server-express");
 
 const { User, Package } = require("../models");
+const { fedexScraper } = require("../utils/scraper");
 
 const resolvers = {
   Query: {
@@ -44,8 +45,9 @@ const resolvers = {
       const token = signToken(user);
       return { token, user };
     },
-    addPackage: async (parent, args, context) => {
+    addPackage: async (parent, { trackingNumber }, context) => {
       if (context.user) {
+        const packageData = await fedexScraper(trackingNumber);
         const newPackage = await Package.create(
           {
             ...packageData,
@@ -53,11 +55,12 @@ const resolvers = {
           },
           { runValidators: true, new: true }
         );
+
         await User.findByIdAndUpdate(
           { _id: context.user._id },
           { $push: { packages: newPackage._id } }
         );
-        return newEvent;
+        return newPackage;
       }
       throw new AuthenticationError("You need to be logged in!");
     },
