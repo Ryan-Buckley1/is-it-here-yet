@@ -1,7 +1,7 @@
 import { gql } from "@apollo/client";
 
 export const LOGIN_USER = gql`
-  mutation login($email: String, $password: String!) {
+  mutation login($email: String, $password: String) {
     login(email: $email, password: $password) {
       token
       user {
@@ -41,14 +41,12 @@ export const REMOVE_PACKAGE = gql`
 export const ADD_PACKAGE = gql`
   mutation addPackage($trackingNumber: String!) {
     addPackage(trackingNumber: $trackingNumber) {
-      package {
-        _id
-        trackingNumber
-        urlToTracking
-        expectedDelDate
-        carrier
-        username
-      }
+      _id
+      trackingNumber
+      urlToTracking
+      expectedDelDate
+      carrier
+      username
     }
   }
 `;

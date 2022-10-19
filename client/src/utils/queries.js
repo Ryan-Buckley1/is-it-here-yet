@@ -6,7 +6,6 @@ export const QUERY_BASIC_ME = gql`
       _id
       username
       email
-      packageCount
     }
   }
 `;
@@ -17,7 +16,7 @@ export const QUERY_FULL_ME = gql`
       _id
       username
       email
-      packageCount
+
       packages {
         _id
         trackingNumber
@@ -30,13 +29,15 @@ export const QUERY_FULL_ME = gql`
 `;
 
 export const QUERY_PACKAGE = gql`
-  query package($_id: ID!) {
-    package(_id: $_id) {
-      _id
-      trackingNumber
-      urlToTracking
-      expectedDelDate
-      carrier
+  query package($trackingNumber: String!) {
+    package(trackingNumber: $trackingNumber) {
+      package {
+        _id
+        trackingNumber
+        urlToTracking
+        expectedDelDate
+        carrier
+      }
     }
   }
 `;
