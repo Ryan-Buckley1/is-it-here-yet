@@ -21,8 +21,10 @@ const resolvers = {
       const allPackages = await Package.find(params);
       return allPackages;
     },
-    package: async (parent, { _id }, context) => {
-      const singlePackage = await Package.findById({ _id });
+    package: async (parent, { trackingNumber }, context) => {
+      const singlePackage = await Package.findOne({
+        trackingNumber: trackingNumber,
+      });
       return singlePackage;
     },
   },
@@ -63,17 +65,20 @@ const resolvers = {
     addPackage: async (parent, { trackingNumber }, context) => {
       if (context.user) {
         const packageData = await trackingScraper(trackingNumber);
-        const newPackage = await Package.create(
-          {
-            ...packageData,
-            username: context.user.username,
-          },
-          { runValidators: true, new: true }
-        );
-
+        // console.log(packageData.trackingNumber);
+        // console.log(context.user);
+        // console.log(trackingNumber);
+        const newPackage = await Package.create({
+          trackingNumber: trackingNumber,
+          urlToTracking: packageData.urlToTracking,
+          expectedDelDate: packageData.expectedDelDate,
+          carrier: packageData.carrier,
+          username: context.user.username,
+        });
+        console.log(newPackage);
         await User.findByIdAndUpdate(
           { _id: context.user._id },
-          { $push: { packages: newPackage._id } }
+          { $addToSet: { packages: newPackage._id } }
         );
         return newPackage;
       }

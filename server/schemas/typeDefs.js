@@ -9,7 +9,7 @@ const typeDefs = gql`
   }
   type Package {
     _id: ID!
-    trackingNumber: String!
+    trackingNumber: String
     urlToTracking: String
     expectedDelDate: String
     carrier: String
@@ -28,11 +28,11 @@ const typeDefs = gql`
   }
 
   type Mutation {
-    login(email: String!, password: String!): Auth
+    login(email: String, password: String): Auth
     addUser(username: String!, email: String!, password: String!): Auth
-    addPackage(trackingNumber: String!, username: String): Package
+    addPackage(trackingNumber: String, username: String): Package
     removePackage(_id: ID): Package
-    updatePackageInfo(_id: ID): Package
+    updatePackageInfo(trackingNumber: String!): Package
   }
 `;
 
