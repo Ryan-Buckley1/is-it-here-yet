@@ -4,7 +4,9 @@ import { ADD_PACKAGE } from "../../utils/mutations";
 
 const PackageForm = () => {
   const [trackingState, setTrackingState] = useState("");
-  const [addPackage, { error }] = useMutation(ADD_PACKAGE);
+  const [addPackage, { error }] = useMutation(ADD_PACKAGE, {
+    variables: { trackingNumber: trackingState },
+  });
 
   const handleChange = (event) => {
     const trackingNumber = event.target.value;
@@ -13,7 +15,7 @@ const PackageForm = () => {
   const handleFormSubmit = async (event) => {
     event.preventDefault();
     try {
-      await addPackage({ variables: trackingState });
+      await addPackage();
       setTrackingState("");
     } catch (e) {
       console.error(e);
