@@ -24,7 +24,7 @@ const trackingScraper = async function (inputTrackingNumber) {
 
   let trackingStart = inputTrackingNumber.substring(0, 2);
 
-  console.log(inputTrackingNumber);
+  // console.log(inputTrackingNumber);
   let carrier = "";
   if (trackingStart === "1Z") {
     carrier = "UPS";
@@ -42,24 +42,41 @@ const trackingScraper = async function (inputTrackingNumber) {
     carrier = "Fedex";
   }
 
-  console.log(carrier);
+  // console.log(carrier);
   const searchValue = await page.$eval(
     `#rpt_lz${carrier} > div > div > div:nth-child(1) > div`,
     (el) => el.textContent
   );
 
-  const url = await page.$eval(
-    `#package_tr_ans > div.b_rich > div.p_tr_v2_container > div > div.pt_link_header > div.b_focusLabel.b_promoteText > a`,
-    (el) => el.getAttribute("href")
-  );
+  let url = "";
+  if (carrier === "Fedex") {
+    url = await page.$eval(
+      `#package_tr_ans > div.b_vPanel > div:nth-child(1) > div > div.p_tr_v2_container > div > div.pt_link_header > div.b_focusLabel.b_promoteText > a`,
+      (el) => el.getAttribute("href")
+    );
+  }
+  if (carrier === "USPS") {
+    url = await page.$eval(
+      `#package_tr_ans > div.b_rich > div.p_tr_v2_container > div > div.pt_link_header > div.b_focusLabel.b_promoteText > a`,
+      (el) => el.getAttribute("href")
+    );
+  }
+  if (carrier === "UPS") {
+    url = await page.$eval(
+      `#package_tr_ans > div.b_rich > div.p_tr_v2_container > div > div.pt_link_header > div.b_focusLabel.b_promoteText > a`,
+      (el) => el.getAttribute("href")
+    );
+  }
+
+  // #package_tr_ans > div.b_rich > div.p_tr_v2_container > div > div.pt_link_header > div.b_focusLabel.b_promoteText > a
   packageData.urlToTracking = url;
   packageData.expectedDelDate = searchValue;
   packageData.carrier = carrier;
-  console.log(url);
-  await page.screenshot({ path: "./logs/ss.png" });
+
+  // await page.screenshot({ path: "./logs/ss.png" });
 
   await browser.close();
-  console.log(packageData);
+
   return packageData;
 };
 
