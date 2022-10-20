@@ -1,49 +1,49 @@
 import { gql } from "@apollo/client";
 
 export const QUERY_BASIC_ME = gql`
-  {
+  query Query {
     me {
       _id
       username
       email
+      packageCount
     }
   }
 `;
 
 export const QUERY_FULL_ME = gql`
-  {
+  query Query {
     me {
       _id
       username
       email
-
+      packageCount
       packages {
-        _id
         trackingNumber
         urlToTracking
         expectedDelDate
         carrier
+        username
+        _id
       }
     }
   }
 `;
 
 export const QUERY_PACKAGE = gql`
-  query package($trackingNumber: String!) {
+  query Query($trackingNumber: String!) {
     package(trackingNumber: $trackingNumber) {
-      package {
-        _id
-        trackingNumber
-        urlToTracking
-        expectedDelDate
-        carrier
-      }
+      _id
+      trackingNumber
+      urlToTracking
+      expectedDelDate
+      carrier
     }
   }
 `;
 
 export const QUERY_PACKAGES = gql`
-  query packages($username: String!) {
+  query Query($username: String!) {
     packages(username: $username) {
       _id
       trackingNumber

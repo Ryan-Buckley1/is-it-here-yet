@@ -22,10 +22,17 @@ const resolvers = {
       return allPackages;
     },
     package: async (parent, { trackingNumber }, context) => {
-      const singlePackage = await Package.findOne({
-        trackingNumber: trackingNumber,
-      });
-      return singlePackage;
+      try {
+        const singlePackage = await Package.findOne({
+          trackingNumber: trackingNumber,
+        });
+        if (!singlePackage) {
+          return { error: "Oops, seems like the package number is wrong!" };
+        }
+        return singlePackage;
+      } catch (error) {
+        return error;
+      }
     },
   },
   Mutation: {
@@ -47,9 +54,11 @@ const resolvers = {
       const token = signToken(user);
       return { token, user };
     },
-    updatePackageInfo: async (parent, { _id }, context) => {
+    updatePackageInfo: async (parent, { trackingNumber }, context) => {
       if (context.user) {
-        const requestPackage = await Package.findById(_id);
+        const requestPackage = await Package.findOne({
+          trackingNumber: trackingNumber,
+        });
         const scrapedPackage = await trackingScraper(
           requestPackage.trackingNumber
         );
@@ -65,9 +74,6 @@ const resolvers = {
     addPackage: async (parent, { trackingNumber }, context) => {
       if (context.user) {
         const packageData = await trackingScraper(trackingNumber);
-        // console.log(packageData.trackingNumber);
-        // console.log(context.user);
-        // console.log(trackingNumber);
         const newPackage = await Package.create({
           trackingNumber: trackingNumber,
           urlToTracking: packageData.urlToTracking,
@@ -84,12 +90,14 @@ const resolvers = {
       }
       throw new AuthenticationError("You need to be logged in!");
     },
-    removePackage: async (parent, { _id }, context) => {
+    removePackage: async (parent, { trackingNumber }, context) => {
       if (context.user) {
-        const deletedPackage = await Package.findByIdAndDelete({ _id: _id });
+        const deletedPackage = await Package.findOneAndDelete({
+          trackingNumber: trackingNumber,
+        });
         await User.findByIdAndUpdate(
           { _id: context.user._id },
-          { $pull: { events: deletedPackage._id } },
+          { $pull: { packages: deletedPackage._id } },
           { new: true }
         );
         return deletedPackage;

@@ -6,6 +6,7 @@ const typeDefs = gql`
     username: String!
     email: String!
     packages: [Package]
+    packageCount: String
   }
   type Package {
     _id: ID!
@@ -31,7 +32,7 @@ const typeDefs = gql`
     login(email: String, password: String): Auth
     addUser(username: String!, email: String!, password: String!): Auth
     addPackage(trackingNumber: String, username: String): Package
-    removePackage(_id: ID): Package
+    removePackage(trackingNumber: String!): Package
     updatePackageInfo(trackingNumber: String!): Package
   }
 `;

@@ -25,16 +25,14 @@ export const ADD_USER = gql`
 `;
 
 export const REMOVE_PACKAGE = gql`
-  mutation removePackage($_id: ID!) {
-    removePackage(_id: $_id) {
-      package {
-        _id
-        trackingNumber
-        urlToTracking
-        expectedDelDate
-        carrier
-        username
-      }
+  mutation removePackage($trackingNumber: String!) {
+    removePackage(trackingNumber: $trackingNumber) {
+      _id
+      trackingNumber
+      urlToTracking
+      expectedDelDate
+      carrier
+      username
     }
   }
 `;
@@ -52,16 +50,14 @@ export const ADD_PACKAGE = gql`
 `;
 
 export const UPDATE_PACKAGE = gql`
-  mutation updatePackageInfo($_id: ID!) {
-    updatePackageInfo(_id: $_id) {
-      package {
-        _id
-        trackingNumber
-        urlToTracking
-        expectedDelDate
-        carrier
-        username
-      }
+  mutation updatePackageInfo($trackingNumber: String!) {
+    updatePackageInfo(trackingNumber: $trackingNumber) {
+      _id
+      trackingNumber
+      urlToTracking
+      expectedDelDate
+      carrier
+      username
     }
   }
 `;
