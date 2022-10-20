@@ -2,7 +2,7 @@ import { useQuery } from "@apollo/client";
 import React from "react";
 import { Link } from "react-router-dom";
 import PackageForm from "../components/PackageForm";
-import PackageList from "../components/PackageList";
+import PackageList from "./PackageList";
 import Auth from "../utils/auth";
 import { QUERY_FULL_ME } from "../utils/queries";
 
@@ -14,7 +14,7 @@ const Home = () => {
     <>
       {loggedIn && data ? (
         <div className="col-12 col-lg-3 mb-3">
-          {data.me.username} has {data.me.packages.length} packages saved
+          {data.me.username} has {data.me.packageCount} packages saved
         </div>
       ) : (
         <div>
