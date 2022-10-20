@@ -16,7 +16,6 @@ const trackingScraper = async function (inputTrackingNumber) {
   await page.setUserAgent(
     "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36"
   );
-  await page.setViewport({ width: 1920, height: 1080 });
 
   await page.goto(`https://www.bing.com/search?q=${inputTrackingNumber}`, {
     waitUntil: "networkidle0",
@@ -24,7 +23,7 @@ const trackingScraper = async function (inputTrackingNumber) {
 
   let trackingStart = inputTrackingNumber.substring(0, 2);
 
-  // console.log(inputTrackingNumber);
+  //Figures out carrier via tracking number format
   let carrier = "";
   if (trackingStart === "1Z") {
     carrier = "UPS";
@@ -42,8 +41,7 @@ const trackingScraper = async function (inputTrackingNumber) {
     carrier = "Fedex";
   }
 
-  // console.log(carrier);
-  const searchValue = await page.$eval(
+  const expectedDeliveryDate = await page.$eval(
     `#rpt_lz${carrier} > div > div > div:nth-child(1) > div`,
     (el) => el.textContent
   );
@@ -55,12 +53,14 @@ const trackingScraper = async function (inputTrackingNumber) {
       (el) => el.getAttribute("href")
     );
   }
+
   if (carrier === "USPS") {
     url = await page.$eval(
       `#package_tr_ans > div.b_rich > div.p_tr_v2_container > div > div.pt_link_header > div.b_focusLabel.b_promoteText > a`,
       (el) => el.getAttribute("href")
     );
   }
+
   if (carrier === "UPS") {
     url = await page.$eval(
       `#package_tr_ans > div.b_rich > div.p_tr_v2_container > div > div.pt_link_header > div.b_focusLabel.b_promoteText > a`,
@@ -68,12 +68,9 @@ const trackingScraper = async function (inputTrackingNumber) {
     );
   }
 
-  // #package_tr_ans > div.b_rich > div.p_tr_v2_container > div > div.pt_link_header > div.b_focusLabel.b_promoteText > a
   packageData.urlToTracking = url;
-  packageData.expectedDelDate = searchValue;
+  packageData.expectedDelDate = expectedDeliveryDate;
   packageData.carrier = carrier;
-
-  // await page.screenshot({ path: "./logs/ss.png" });
 
   await browser.close();
 
