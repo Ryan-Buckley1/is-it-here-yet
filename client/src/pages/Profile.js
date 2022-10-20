@@ -1,5 +1,5 @@
 import React from "react";
-import { Navigate, useParams } from "react-router-dom";
+import { Link, Navigate, useParams } from "react-router-dom";
 
 import { useQuery, useMutation } from "@apollo/client";
 import { UPDATE_PACKAGE } from "../utils/mutations";
@@ -10,6 +10,7 @@ const Profile = () => {
     <>
       <div> THis is the profile page</div>
       <PackageForm />
+      <Link to={`/profile/packages`}>See all of your tracked packages</Link>
     </>
   );
 };
