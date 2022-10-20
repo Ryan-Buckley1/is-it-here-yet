@@ -7,13 +7,16 @@ import {
 } from "@apollo/client";
 import { setContext } from "@apollo/client/link/context";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+
 import Header from "./components/Header";
+import Footer from "./components/Footer";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
-import Footer from "./components/Footer";
 import Profile from "./pages/Profile";
-import PackageList from "./components/PackageList";
+import PackageList from "./pages/PackageList";
+import SinglePackage from "./pages/SinglePackage";
+import NoMatch from "./pages/NoMatch";
 
 const httpLink = createHttpLink({
   uri: "/graphql",
@@ -40,16 +43,18 @@ function App() {
       <Router>
         <Header />
         <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/signup" element={<Signup />} />
-          <Route path="/profile" element={<Profile />}>
-            <Route path="/profile/packages" element={<PackageList />} />
+          <Route exact path="/" element={<Home />} />
+          <Route exact path="/login" element={<Login />} />
+          <Route exact path="/signup" element={<Signup />} />
+          <Route exact path="/profile">
             <Route
               path="/profile/package/:trackingNumber"
-              element={<Profile />}
+              element={<SinglePackage />}
             />
+            <Route exact path="/profile/packages" element={<PackageList />} />
+            <Route exact path="" element={<Profile />} />
           </Route>
+          <Route path="*" element={<NoMatch />} />
         </Routes>
         <Footer />
       </Router>
