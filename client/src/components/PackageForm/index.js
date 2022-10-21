@@ -57,7 +57,8 @@ const PackageForm = () => {
   }
 
   if (error && error.message.startsWith("Error:")) {
-    errorText = "Your tracking number may have been entered incorrectly";
+    errorText =
+      "Your tracking number may have been entered incorrectly or the shipper has yet to give details.";
   }
   return (
     <div>
