@@ -1,13 +1,19 @@
 import { useMutation, useQuery } from "@apollo/client";
-import React from "react";
-import { useParams } from "react-router-dom";
-import Auth from "../utils/auth";
+import React, { useState } from "react";
+import { useParams, useNavigate } from "react-router-dom";
+
 import { REMOVE_PACKAGE, UPDATE_PACKAGE } from "../utils/mutations";
 import { QUERY_PACKAGE } from "../utils/queries";
 
+import CircularProgress from "@mui/material/CircularProgress";
+import Snackbar from "@mui/material/Snackbar";
+import IconButton from "@mui/material/IconButton";
+import CloseIcon from "@mui/icons-material/Close";
+
 const SinglePackage = () => {
+  const navigate = useNavigate();
+  const [open, setOpen] = useState(false);
   const { trackingNumber } = useParams();
-  console.log(trackingNumber);
   const {
     loading: UpdateLoading,
     data,
@@ -25,12 +31,14 @@ const SinglePackage = () => {
   });
 
   if (loading) {
-    return <div> Loading...</div>;
+    return (
+      <div>
+        {" "}
+        <CircularProgress />
+      </div>
+    );
   }
-
   const box = data?.package || {};
-
-  console.log("data", queryError);
 
   const handleClick = (event) => {
     event.preventDefault();
@@ -45,10 +53,34 @@ const SinglePackage = () => {
     event.preventDefault();
     try {
       deletePackage();
+      setOpen(true);
+      setTimeout(() => {
+        navigate("/");
+      }, 2000);
     } catch (error) {
       console.error(error);
     }
   };
+
+  const handleClose = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+    setOpen(false);
+  };
+
+  const action = (
+    <React.Fragment>
+      <IconButton
+        size="small"
+        aria-label="close"
+        color="inherit"
+        onClick={handleClose}
+      >
+        <CloseIcon fontSize="small" />
+      </IconButton>
+    </React.Fragment>
+  );
 
   return (
     <>
@@ -67,7 +99,9 @@ const SinglePackage = () => {
             </div>
 
             {UpdateLoading ? (
-              <div> Loading... </div>
+              <div>
+                <CircularProgress color="success" />
+              </div>
             ) : (
               <div>
                 <button
@@ -87,6 +121,13 @@ const SinglePackage = () => {
                   {" "}
                   Delete Package{" "}
                 </button>
+                <Snackbar
+                  open={open}
+                  autoHideDuration={6000}
+                  onClose={handleClose}
+                  message="Package Deleted"
+                  action={action}
+                />
               </div>
             )}
 
