@@ -9,12 +9,37 @@ import { QUERY_FULL_ME } from "../utils/queries";
 const Home = () => {
   const { loading, data } = useQuery(QUERY_FULL_ME);
   const loggedIn = Auth.loggedIn();
+  const me = data?.me || {};
+  let upcomingDeliveriesCount = 0;
+  let deliveredPackages = 0;
+  const boxes = data?.me.packages;
+
+  if (data) {
+    for (let i = 0; i < boxes.length; i++) {
+      if (!boxes[i].expectedDelDate.startsWith("Delivered")) {
+        upcomingDeliveriesCount = upcomingDeliveriesCount + 1;
+      }
+    }
+    deliveredPackages = boxes.length - upcomingDeliveriesCount;
+  }
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <>
-      {loggedIn && data ? (
-        <div className="col-12 col-lg-3 mb-3">
-          {data.me.username} has {data.me.packageCount} packages saved
+      {loggedIn && me ? (
+        <div className="profile">
+          <h3 className="usename">Welcome back {me.username}!</h3>
+          <p className="packageCount">
+            You currently have {me.packageCount} packages saved
+          </p>
+          <p>
+            You currently have {upcomingDeliveriesCount} scheduled to be
+            delivered and {deliveredPackages} delivered!
+          </p>
+          <Link to={`/profile/packages`}>See your packages!</Link>
         </div>
       ) : (
         <div>

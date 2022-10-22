@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useMutation } from "@apollo/client";
 import { LOGIN_USER } from "../utils/mutations";
 import Auth from "../utils/auth";
+import { Button, Container, Grid, TextField } from "@mui/material";
 
 const Login = (props) => {
   const [formState, setFormState] = useState({ email: "", password: "" });
@@ -36,37 +37,53 @@ const Login = (props) => {
   };
 
   return (
-    <main className="flex-row justify-center mb-4">
-      <div className="col-12 col-md-6">
-        <div className="card">
-          <h4 className="card-header">Login</h4>
-          <div className="card-body">
-            <form onSubmit={handleFormSubmit}>
-              <input
+    <main>
+      <h4 className="form-header">Login to continue your tracking!</h4>
+      <div>
+        <form onSubmit={handleFormSubmit}>
+          <Grid
+            className="user-form"
+            container
+            spacing={3}
+            direction="column"
+            alignItems="center"
+          >
+            <Grid item>
+              <TextField
+                label="Email"
+                variant="filled"
                 className="form-input"
-                placeholder="Your email"
                 name="email"
                 type="email"
                 id="email"
                 value={formState.email}
                 onChange={handleChange}
               />
-              <input
+            </Grid>
+            <Grid item>
+              <TextField
+                label="Password"
+                variant="filled"
                 className="form-input"
-                placeholder="******"
                 name="password"
                 type="password"
                 id="password"
                 value={formState.password}
                 onChange={handleChange}
               />
-              <button className="btn d-block w-100" type="submit">
+            </Grid>
+            <Grid item>
+              <Button
+                variant="outlined"
+                className="user-submit-btn"
+                type="submit"
+              >
                 Submit
-              </button>
-            </form>
-            {error && <div>Login failed! </div>}
-          </div>
-        </div>
+              </Button>
+            </Grid>
+          </Grid>
+        </form>
+        {error && <div className="error">Login failed! </div>}
       </div>
     </main>
   );

@@ -1,14 +1,103 @@
 .package-list {
-  display: flex;
-  flex-wrap: wrap;
-  flex-direction: column;
+  width: 100vw;
+  margin-bottom: 3%;
 }
+
+.user-form {
+  min-height: 35vh;
+  min-width: 100vw
+}
+
+.form-input {
+  min-width: 20vw;
+}
+
+.form-header {
+
+  text-align: center;
+}
+.package-grid-item {
+  width: 20vw;
+  min-width: 30%
+}
+
 .tracking-number .carrier {
 font-weight: 500;
 }
+
 a {
   text-decoration: none;
 }
+
 .package-card {
   margin-bottom: 1%;
+  margin-top: 1%;
+}
+
+header {
+  background-color: #6a1b9a;
+}
+
+.header-bar {
+  display:flex;
+  justify-content: space-between;
+  margin-left: 3%;
+  margin-right: 3%;
+  
+}
+
+.what-to-do {
+  margin-top: 1.5%;
+}
+
+#menu-button {
+  background-color: #4db6ac;
+  color: black;
+  font-weight: 500;
+}
+
+.title {
+  font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  color: #5dc4b9;
+  text-shadow: black 1px 1px 2px;
+}
+
+.profile-page {
+  margin-top: 10%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.tracking-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: stretch;
+  margin-top: 15%;
+  width: 100%;
+  height: 20vh;
+}
+
+.submit-button {
+  color: #4db6ac;
+  width: 20%;
+  align-self: center;
+}
+
+.error {
+  /* margin-top: 10%; */
+  color: orangered;
+  text-align: center;
+}
+
+
+
+
+
+.footer{
+  position:fixed;
+  text-align: end;
+  bottom: 0;
+  width: 90vw;
 }

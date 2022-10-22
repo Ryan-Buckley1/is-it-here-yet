@@ -1,31 +1,105 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import Auth from "../../utils/auth";
+import Button from "@mui/material/Button";
+import Menu from "@mui/material/Menu";
+import MenuItem from "@mui/material/MenuItem";
 
 const Header = () => {
+  const navigate = useNavigate();
   const logout = (event) => {
     event.preventDefault();
     Auth.logout();
   };
+  const [anchorEl, setAnchorEl] = useState(null);
+
+  const open = Boolean(anchorEl);
+
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  const handleAddPackage = () => {
+    navigate("/profile");
+    setAnchorEl(null);
+  };
+
+  const handleAllPackage = () => {
+    navigate("/profile/packages");
+    setAnchorEl(null);
+  };
+  const handleLogIn = () => {
+    navigate("/login");
+    setAnchorEl(null);
+  };
+  const handleSignUp = () => {
+    navigate("/signup");
+    setAnchorEl(null);
+  };
+
   return (
     <header className="header">
       <div className="header-bar">
         <Link to="/">
-          <h1>Is It Here Yet?</h1>
+          <h1 className="title">Is It Here Yet?</h1>
         </Link>
 
-        <nav className="text-center">
+        <nav className="what-to-do">
           {Auth.loggedIn() ? (
             <>
-              <Link to="/profile">Me</Link>
-              <a href="/" onClick={logout}>
-                Logout
-              </a>
+              <Button
+                color="primary"
+                variant="contained"
+                id="menu-button"
+                aria-controls={open ? "basic-menu" : undefined}
+                aria-haspopup="true"
+                aria-expanded={open ? "true" : undefined}
+                onClick={handleClick}
+              >
+                What to do
+              </Button>
+              <Menu
+                id="basic-menu"
+                anchorEl={anchorEl}
+                open={open}
+                onClose={handleClose}
+                MenuListProps={{
+                  "aria-labelledby": "basic-button",
+                }}
+              >
+                <MenuItem onClick={handleAddPackage}>Add A package</MenuItem>
+                <MenuItem onClick={handleAllPackage}>See All Packages</MenuItem>
+                <MenuItem onClick={logout}>Logout</MenuItem>
+              </Menu>
             </>
           ) : (
             <>
-              <Link to="/login">Login</Link>
-              <Link to="/signup">Signup</Link>
+              <Button
+                variant="contained"
+                id="menu-button"
+                aria-controls={open ? "basic-menu" : undefined}
+                aria-haspopup="true"
+                aria-expanded={open ? "true" : undefined}
+                onClick={handleClick}
+              >
+                Get Tracking
+              </Button>
+              <Menu
+                id="basic-menu"
+                anchorEl={anchorEl}
+                open={open}
+                onClose={handleClose}
+                MenuListProps={{
+                  "aria-labelledby": "basic-button",
+                }}
+              >
+                <MenuItem onClick={handleLogIn}>Log In</MenuItem>
+                <MenuItem onClick={handleSignUp}>Sign Up</MenuItem>
+              </Menu>
             </>
           )}
         </nav>

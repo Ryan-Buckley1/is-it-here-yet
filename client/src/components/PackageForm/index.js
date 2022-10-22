@@ -6,8 +6,12 @@ import CircularProgress from "@mui/material/CircularProgress";
 import Snackbar from "@mui/material/Snackbar";
 import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
+import { useNavigate } from "react-router-dom";
+import { Button, TextField } from "@mui/material";
+const success = "#4db6ac";
 
 const PackageForm = () => {
+  const navigate = useNavigate();
   const [trackingState, setTrackingState] = useState("");
   const [open, setOpen] = useState(false);
 
@@ -24,8 +28,8 @@ const PackageForm = () => {
     event.preventDefault();
     try {
       await addPackage();
-      setTrackingState("");
       setOpen(true);
+      setTrackingState("");
     } catch (e) {
       console.error(e);
     }
@@ -62,8 +66,9 @@ const PackageForm = () => {
   }
   return (
     <div>
-      <form onSubmit={handleFormSubmit}>
-        <input
+      <form className="tracking-form" onSubmit={handleFormSubmit}>
+        <TextField
+          required
           className="trackingSubmit"
           placeholder="Tracking Number"
           name="trackingNumber"
@@ -74,9 +79,14 @@ const PackageForm = () => {
         {loading ? (
           <CircularProgress />
         ) : (
-          <button className="btn d-block w-100" type="submit">
+          <Button
+            variant="contained"
+            color="secondary"
+            className="submit-button"
+            type="submit"
+          >
             Submit
-          </button>
+          </Button>
         )}
       </form>
       <Snackbar
@@ -87,7 +97,7 @@ const PackageForm = () => {
         action={action}
       />
 
-      {error && <h1>{errorText} </h1>}
+      {error && <h3 className="error">{errorText} </h3>}
     </div>
   );
 };
