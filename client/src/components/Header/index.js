@@ -4,10 +4,10 @@ import Auth from "../../utils/auth";
 import Button from "@mui/material/Button";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
-import { Container } from "@mui/material";
 
 const Header = () => {
   const navigate = useNavigate();
+  
   const logout = (event) => {
     event.preventDefault();
     Auth.logout();
@@ -33,10 +33,12 @@ const Header = () => {
     navigate("/profile/packages");
     setAnchorEl(null);
   };
+
   const handleLogIn = () => {
     navigate("/login");
     setAnchorEl(null);
   };
+
   const handleSignUp = () => {
     navigate("/signup");
     setAnchorEl(null);

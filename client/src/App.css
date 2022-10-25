@@ -154,27 +154,8 @@ header {
 .trackingSubmit {
   align-self: center;
   }
-  
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 /* MEDIA QUERIES  */
-
 
 @media  only screen and (max-width: 1150px ) {
   .package-grid-item {

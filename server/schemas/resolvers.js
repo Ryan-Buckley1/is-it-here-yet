@@ -28,7 +28,6 @@ const resolvers = {
         const singlePackage = await Package.findOne({
           trackingNumber: trackingNumber,
         });
-        console.log(singlePackage);
         if (singlePackage === null) {
           return { error: "Oops, seems like the tracking number is wrong!" };
         }
