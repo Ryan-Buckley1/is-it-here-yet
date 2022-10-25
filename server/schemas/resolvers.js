@@ -17,17 +17,20 @@ const resolvers = {
       throw new AuthenticationError(`You aren't logged in!`);
     },
     packages: async (parent, { username }, context) => {
-      const params = username ? { username } : {};
-      const allPackages = await Package.find(params);
-      return allPackages;
+      if (context.user) {
+        const allPackages = await Package.find(context.username);
+        return allPackages;
+      }
+      throw new AuthenticationError(`You aren't logged in!`);
     },
     package: async (parent, { trackingNumber }, context) => {
       try {
         const singlePackage = await Package.findOne({
           trackingNumber: trackingNumber,
         });
-        if (!singlePackage) {
-          return { error: "Oops, seems like the package number is wrong!" };
+        console.log(singlePackage);
+        if (singlePackage === null) {
+          return { error: "Oops, seems like the tracking number is wrong!" };
         }
         return singlePackage;
       } catch (error) {
@@ -81,7 +84,6 @@ const resolvers = {
           carrier: packageData.carrier,
           username: context.user.username,
         });
-        console.log(newPackage);
         await User.findByIdAndUpdate(
           { _id: context.user._id },
           { $addToSet: { packages: newPackage._id } }
