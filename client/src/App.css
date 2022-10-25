@@ -109,7 +109,17 @@ header {
   width: 100vw;
 }
 
+.header-bar {
+  display:flex;
+  justify-content: space-between;
+  align-items: center;
+
+  margin-left: 3%;
+  margin-right: 3%;
+}
+
 #menu-button {
+  margin-bottom: 2vh;
   background-color: #4db6ac;
   color: black;
   font-weight: 500;
