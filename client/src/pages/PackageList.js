@@ -1,31 +1,37 @@
 import { useQuery } from "@apollo/client";
-import { Link } from "react-router-dom";
 import { QUERY_FULL_ME } from "../utils/queries";
+import { Link } from "react-router-dom";
 
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 import { Grid } from "@mui/material";
+import ArchiveIcon from "@mui/icons-material/Archive";
+import UnarchiveIcon from "@mui/icons-material/Unarchive";
+import CircularProgress from "@mui/material/CircularProgress";
 
 const PackageList = () => {
   const { loading, data } = useQuery(QUERY_FULL_ME);
 
+  console.log(data);
   const me = data?.me || {};
 
-  if (!me.packageCount) {
-    return <h2>No Packages Tracked Yet</h2>;
-  }
   if (loading) {
-    return <div>Loading...</div>;
+    return (
+      <div className="loading">
+        <CircularProgress />
+      </div>
+    );
+  }
+  if (me.packages.length === 0) {
+    return <h2 className="noTracked">No Packages Tracked Yet</h2>;
   }
 
   return (
     <div>
-      <h3> Your Packages!</h3>
-
+      <h3 className="package-list-title"> Your Packages!</h3>
       <Grid
         container
-        spacing={4}
         alignItems="center"
         justifyContent="space-between"
         direction="column"
@@ -35,9 +41,12 @@ const PackageList = () => {
           me.packages.map((stuff) => {
             if (stuff.expectedDelDate.startsWith("Delivered")) {
               return (
-                <Grid item className="package-grid-item">
+                <Grid
+                  item
+                  key={stuff.trackingNumber}
+                  className="package-grid-item"
+                >
                   <Card
-                    key={stuff.trackingNumber}
                     sx={{
                       maxWidth: 500,
                       border: 2,
@@ -53,7 +62,7 @@ const PackageList = () => {
                         className="tracking-number"
                       >
                         <Link to={`/profile/package/${stuff.trackingNumber}`}>
-                          {stuff.trackingNumber}
+                          {stuff.trackingNumber} <ArchiveIcon />
                         </Link>
                       </Typography>
                       <Typography
@@ -82,9 +91,14 @@ const PackageList = () => {
                     }}
                   >
                     <CardContent>
-                      <Typography gutterBottom variant="h5" component="div">
+                      <Typography
+                        gutterBottom
+                        variant="h5"
+                        component="div"
+                        className="tracking-number"
+                      >
                         <Link to={`/profile/package/${stuff.trackingNumber}`}>
-                          {stuff.trackingNumber}
+                          {stuff.trackingNumber} <UnarchiveIcon />
                         </Link>
                       </Typography>
                       <Typography variant="body1" color="secondary">

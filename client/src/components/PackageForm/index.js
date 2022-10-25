@@ -8,7 +8,6 @@ import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
 import { useNavigate } from "react-router-dom";
 import { Button, TextField } from "@mui/material";
-const success = "#4db6ac";
 
 const PackageForm = () => {
   const navigate = useNavigate();
@@ -57,7 +56,7 @@ const PackageForm = () => {
 
   let errorText = "";
   if (error && error.message.startsWith("E11000")) {
-    errorText = "You already entered that Tracking Number.";
+    errorText = "You or someone else has already entered that Tracking Number.";
   }
 
   if (error && error.message.startsWith("Error:")) {
@@ -66,38 +65,39 @@ const PackageForm = () => {
   }
   return (
     <div>
-      <form className="tracking-form" onSubmit={handleFormSubmit}>
-        <TextField
-          required
-          className="trackingSubmit"
-          placeholder="Tracking Number"
-          name="trackingNumber"
-          id="trackingNumber"
-          value={trackingState}
-          onChange={handleChange}
+      <div>
+        <form className="tracking-form" onSubmit={handleFormSubmit}>
+          <TextField
+            required
+            className="trackingSubmit"
+            placeholder="Tracking Number"
+            name="trackingNumber"
+            id="trackingNumber"
+            value={trackingState}
+            onChange={handleChange}
+          />
+          {loading ? (
+            <CircularProgress className="loading" />
+          ) : (
+            <Button
+              variant="contained"
+              color="secondary"
+              className="submit-button"
+              type="submit"
+            >
+              Submit
+            </Button>
+          )}
+        </form>
+        <Snackbar
+          open={open}
+          autoHideDuration={6000}
+          onClose={handleClose}
+          message="Package Successfully added"
+          action={action}
         />
-        {loading ? (
-          <CircularProgress />
-        ) : (
-          <Button
-            variant="contained"
-            color="secondary"
-            className="submit-button"
-            type="submit"
-          >
-            Submit
-          </Button>
-        )}
-      </form>
-      <Snackbar
-        open={open}
-        autoHideDuration={6000}
-        onClose={handleClose}
-        message="Package Successfully added"
-        action={action}
-      />
-
-      {error && <h3 className="error">{errorText} </h3>}
+      </div>
+      <div>{error && <h3 className="error">{errorText} </h3>}</div>
     </div>
   );
 };

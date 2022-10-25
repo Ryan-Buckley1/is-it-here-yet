@@ -9,6 +9,16 @@ import CircularProgress from "@mui/material/CircularProgress";
 import Snackbar from "@mui/material/Snackbar";
 import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
+import DeleteIcon from "@mui/icons-material/Delete";
+import RefreshIcon from "@mui/icons-material/Refresh";
+
+import { Button, Container, Grid, Tooltip } from "@mui/material";
+
+import uspsPic from "../assets/images/USPS.png";
+import fedexPic from "../assets/images/FEDEX.png";
+import upsPic from "../assets/images/UPS.png";
+import delivered from "../assets/images/delivered.png";
+import onTheWay from "../assets/images/on-the-way.png";
 
 const SinglePackage = () => {
   const navigate = useNavigate();
@@ -32,14 +42,15 @@ const SinglePackage = () => {
 
   if (loading) {
     return (
-      <div>
+      <div className="loading">
         {" "}
         <CircularProgress />
       </div>
     );
+  } else {
   }
   const box = data?.package || {};
-
+  // console.log(box.expectedDelDate.startsWith("Delivered"));
   const handleClick = (event) => {
     event.preventDefault();
     try {
@@ -82,68 +93,108 @@ const SinglePackage = () => {
     </React.Fragment>
   );
 
+  let deliveredPic = null;
+
+  let carrierPic = null;
+
+  if (box.carrier === "UPS") {
+    carrierPic = upsPic;
+  }
+  if (box.carrier === "Fedex") {
+    carrierPic = fedexPic;
+  }
+  if (box.carrier === "USPS") {
+    carrierPic = uspsPic;
+  }
+  // if (box.expectedDelDate.startsWith("Delivered")) {
+  //   deliveredPic = delivered;
+  // } else {
+  //   deliveredPic = onTheWay;
+  // }
   return (
     <>
       {queryError ? (
-        <h3>Cannot find a saved package with that tracking number!</h3>
+        <h3 className="noTracked">
+          Cannot find a saved package with that tracking number!
+        </h3>
       ) : (
-        <div>
-          <h3 className="title">{box.trackingNumber}</h3>
-          <div className="trackingURL">
-            <p>
-              <a href={box.urlToTracking}>{box.carrier}</a>
-            </p>
+        <Grid container justifyContent="center">
+          <Grid item>
+            <a href={box.urlToTracking}>
+              <img
+                src={carrierPic}
+                alt={box.carrier}
+                className="carrier-pic"
+              ></img>
+            </a>
+          </Grid>
+          <Grid container direction="column" alignItems="center">
+            <h2 className={"trackingNumber"}>{box.trackingNumber}</h2>
 
-            <div className="expDate">
-              <p>{box.expectedDelDate}</p>
+            <div className="trackingURL">
+              <div className="expDate">
+                <h5>{box.expectedDelDate}</h5>
+              </div>
+
+              {UpdateLoading ? (
+                <div>
+                  <CircularProgress color="success" />
+                </div>
+              ) : (
+                <Grid
+                  container
+                  justifyContent="space-evenly"
+                  alignItems="center"
+                >
+                  <Tooltip title="Refresh">
+                    <Button
+                      className="single-pkg-btn"
+                      variant="contained"
+                      type="button"
+                      value={box.trackingNumber}
+                      onClick={handleClick}
+                    >
+                      <RefreshIcon />
+                    </Button>
+                  </Tooltip>
+                  <Tooltip title="Delete Package">
+                    <Button
+                      className="single-pkg-btn"
+                      variant="contained"
+                      color="error"
+                      type="button"
+                      value={box.trackingNumber}
+                      onClick={handleDelete}
+                    >
+                      <DeleteIcon />
+                    </Button>
+                  </Tooltip>
+
+                  <Snackbar
+                    open={open}
+                    autoHideDuration={6000}
+                    onClose={handleClose}
+                    message="Package Deleted"
+                    action={action}
+                  />
+                </Grid>
+              )}
+
+              {error && (
+                <h3>
+                  You need to be logged in!
+                  {/* bad tracking number not logged in */}
+                </h3>
+              )}
+
+              {error2 && (
+                <h3>
+                  Something went wrong while trying to delete this pacakge
+                </h3>
+              )}
             </div>
-
-            {UpdateLoading ? (
-              <div>
-                <CircularProgress color="success" />
-              </div>
-            ) : (
-              <div>
-                <button
-                  type="button"
-                  value={box.trackingNumber}
-                  onClick={handleClick}
-                >
-                  {" "}
-                  Update tracking{" "}
-                </button>
-
-                <button
-                  type="button"
-                  value={box.trackingNumber}
-                  onClick={handleDelete}
-                >
-                  {" "}
-                  Delete Package{" "}
-                </button>
-                <Snackbar
-                  open={open}
-                  autoHideDuration={6000}
-                  onClose={handleClose}
-                  message="Package Deleted"
-                  action={action}
-                />
-              </div>
-            )}
-
-            {error && (
-              <h3>
-                {" "}
-                Something went wrong while trying to update your package details
-                {/* bad tracking number not logged in */}
-              </h3>
-            )}
-
-            {error2 && (
-              <h3>Something went wrong while trying to delete this pacakge</h3>
-            )}
-          </div>
-        </div>
+          </Grid>
+        </Grid>
       )}
     </>
   );

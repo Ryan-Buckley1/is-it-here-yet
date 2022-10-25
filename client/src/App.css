@@ -1,6 +1,13 @@
 .package-list {
-  width: 100vw;
   margin-bottom: 3%;
+}
+
+.package-list-title, .noTracked, .loading, .form-header, .noPkgs, .intro {
+  text-align: center;
+}
+
+.packagesdiv {
+  width: 100vw
 }
 
 .user-form {
@@ -8,16 +15,16 @@
   min-width: 100vw
 }
 
+
 .form-input {
   min-width: 20vw;
 }
 
-.form-header {
-  text-align: center;
-}
+
+
 .package-grid-item {
-  width: 20vw;
-  min-width: 30%
+  min-width: 30vw;
+  height: 20vh;
 }
 
 .tracking-number .carrier {
@@ -31,10 +38,12 @@ a {
 .package-card {
   margin-bottom: 1%;
   margin-top: 1%;
+  min-height: 10vh;
 }
 
 header {
-  background-color: #6a1b9a;
+  background-image:url(./assets/images/buncha-boxes.jpg);
+  background-size: cover;
   width: 100vw;
 }
 
@@ -45,6 +54,8 @@ header {
   margin-right: 3%;
   
 }
+
+
 
 .what-to-do {
   margin-top: 1.5%;
@@ -58,8 +69,8 @@ header {
 
 .title {
   font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
-  color: #5dc4b9;
-  text-shadow: black 1px 1px 2px;
+  color: #71f7e9;
+  text-shadow: black 2px 2px 4px;
 }
 
 .profile-page {
@@ -85,7 +96,18 @@ header {
   align-self: center;
 }
 
+.carrier-pic {
+width: 25vw
+}
+
+
+.driver {
+  max-height: 50vh;
+}
+
 .error {
+  margin-left: 5%;
+  margin-right: 5%;
   color: orangered;
   text-align: center;
 }
@@ -94,14 +116,24 @@ header {
   padding: 0 5% 0 5%;
 
 }
-/* .intro-instructions {
-} */
+
 
 .boxes-pic {
   border-radius: 15px;
   align-items: center;
 }
 
+
+
+.lost-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.trackingSubmit {
+align-self: center;
+}
 
 .footer{
   position:fixed;
@@ -110,9 +142,9 @@ header {
   width: 90vw;
 }
 
-@media  only screen and (max-width: 600px ) {
+@media  only screen and (max-width: 850px ) {
   .boxes-pic {
     max-width: 50%;
-    margin-left: 22%;
+    margin-left: 25%;
   }
 }
