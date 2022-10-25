@@ -13,7 +13,6 @@ import CircularProgress from "@mui/material/CircularProgress";
 const PackageList = () => {
   const { loading, data } = useQuery(QUERY_FULL_ME);
 
-  console.log(data);
   const me = data?.me || {};
 
   if (loading) {
@@ -23,8 +22,15 @@ const PackageList = () => {
       </div>
     );
   }
-  if (me.packages.length === 0) {
-    return <h2 className="noTracked">No Packages Tracked Yet</h2>;
+  if (data && me.packages.length === 0) {
+    return (
+      <div className="noTracked">
+        <h2 className="noTracked">No Packages Tracked Yet</h2>
+        <h4>
+          <Link to={`/profile`}>Add one here!</Link>
+        </h4>
+      </div>
+    );
   }
 
   return (
@@ -43,8 +49,8 @@ const PackageList = () => {
               return (
                 <Grid
                   item
-                  key={stuff.trackingNumber}
                   className="package-grid-item"
+                  key={stuff.trackingNumber}
                 >
                   <Card
                     sx={{
@@ -81,9 +87,12 @@ const PackageList = () => {
               );
             } else {
               return (
-                <Grid item className="package-grid-item">
+                <Grid
+                  item
+                  className="package-grid-item"
+                  key={stuff.trackingNumber}
+                >
                   <Card
-                    key={stuff.trackingNumber}
                     sx={{
                       maxWidth: 500,
                       border: 2,

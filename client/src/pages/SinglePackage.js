@@ -12,7 +12,7 @@ import CloseIcon from "@mui/icons-material/Close";
 import DeleteIcon from "@mui/icons-material/Delete";
 import RefreshIcon from "@mui/icons-material/Refresh";
 
-import { Button, Container, Grid, Tooltip } from "@mui/material";
+import { Button, Grid, Tooltip } from "@mui/material";
 
 import uspsPic from "../assets/images/USPS.png";
 import fedexPic from "../assets/images/FEDEX.png";
@@ -50,7 +50,6 @@ const SinglePackage = () => {
   } else {
   }
   const box = data?.package || {};
-  // console.log(box.expectedDelDate.startsWith("Delivered"));
   const handleClick = (event) => {
     event.preventDefault();
     try {
@@ -106,11 +105,11 @@ const SinglePackage = () => {
   if (box.carrier === "USPS") {
     carrierPic = uspsPic;
   }
-  // if (box.expectedDelDate.startsWith("Delivered")) {
-  //   deliveredPic = delivered;
-  // } else {
-  //   deliveredPic = onTheWay;
-  // }
+  if (data && box.expectedDelDate.startsWith("Delivered")) {
+    deliveredPic = delivered;
+  } else {
+    deliveredPic = onTheWay;
+  }
   return (
     <>
       {queryError ? (
@@ -120,17 +119,25 @@ const SinglePackage = () => {
       ) : (
         <Grid container justifyContent="center">
           <Grid item>
-            <a href={box.urlToTracking}>
-              <img
-                src={carrierPic}
-                alt={box.carrier}
-                className="carrier-pic"
-              ></img>
-            </a>
+            <Tooltip title={`Link to ${box.carrier}`}>
+              <a href={box.urlToTracking}>
+                <img
+                  src={carrierPic}
+                  alt={box.carrier}
+                  className="carrier-pic"
+                ></img>
+              </a>
+            </Tooltip>
           </Grid>
           <Grid container direction="column" alignItems="center">
             <h2 className={"trackingNumber"}>{box.trackingNumber}</h2>
-
+            <div className="delPic">
+              <img
+                className="delStatusPic"
+                src={deliveredPic}
+                alt="Delivery Status"
+              ></img>
+            </div>
             <div className="trackingURL">
               <div className="expDate">
                 <h5>{box.expectedDelDate}</h5>

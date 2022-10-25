@@ -1,3 +1,11 @@
+a {
+  text-decoration: none;
+}
+header {
+  background-image:url(./assets/images/buncha-boxes.jpg);
+  background-size: cover;
+  width: 100vw;
+}
 .package-list {
   margin-bottom: 3%;
 }
@@ -20,6 +28,12 @@
   min-width: 20vw;
 }
 
+.delPic {
+  max-height: 10%;
+}
+.delStatusPic {
+  max-height: 100%;
+}
 
 
 .package-grid-item {
@@ -31,9 +45,6 @@
 font-weight: 500;
 }
 
-a {
-  text-decoration: none;
-}
 
 .package-card {
   margin-bottom: 1%;
@@ -41,11 +52,6 @@ a {
   min-height: 10vh;
 }
 
-header {
-  background-image:url(./assets/images/buncha-boxes.jpg);
-  background-size: cover;
-  width: 100vw;
-}
 
 .header-bar {
   display:flex;
@@ -142,9 +148,22 @@ align-self: center;
   width: 90vw;
 }
 
+@media  only screen and (max-width: 1150px ) {
+  .package-grid-item {
+    min-width: 45vw;
+  }
+}
+
 @media  only screen and (max-width: 850px ) {
   .boxes-pic {
     max-width: 50%;
     margin-left: 25%;
   }
 }
+
+@media  only screen and (max-width: 450px ) {
+  .package-grid-item {
+    min-width: 95vw;
+  }
+}
+
