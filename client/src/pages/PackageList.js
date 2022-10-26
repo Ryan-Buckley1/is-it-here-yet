@@ -35,7 +35,7 @@ const PackageList = () => {
 
   return (
     <div>
-      <h3 className="package-list-title"> Your Packages!</h3>
+      <h3 className="package-list-title"> Your Packages! </h3>
       <Grid
         container
         alignItems="center"
