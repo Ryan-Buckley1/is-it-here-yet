@@ -95,7 +95,7 @@ const PackageList = () => {
                   <Card
                     sx={{
                       maxWidth: 500,
-                      border: 2,
+                      border: 1.99,
                       backgroundColor: "#ffecb3",
                     }}
                   >
