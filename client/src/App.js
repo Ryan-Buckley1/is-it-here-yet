@@ -70,10 +70,10 @@ function App() {
             <Route exact path="/signup" element={<Signup />} />
             <Route exact path="/profile" element={<Profile />} />
             <Route
-              path="/profile/package/:trackingNumber"
+              path="/package/:trackingNumber"
               element={<SinglePackage />}
             />
-            <Route exact path="/profile/packages" element={<PackageList />} />
+            <Route exact path="/packages" element={<PackageList />} />
             <Route path="*" element={<NoMatch />} />
           </Routes>
           <Footer />

@@ -7,7 +7,7 @@ import MenuItem from "@mui/material/MenuItem";
 
 const Header = () => {
   const navigate = useNavigate();
-  
+
   const logout = (event) => {
     event.preventDefault();
     Auth.logout();
@@ -30,7 +30,7 @@ const Header = () => {
   };
 
   const handleAllPackage = () => {
-    navigate("/profile/packages");
+    navigate("/packages");
     setAnchorEl(null);
   };
 

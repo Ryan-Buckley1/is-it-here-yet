@@ -1,8 +1,6 @@
 import { useQuery } from "@apollo/client";
 import React from "react";
 import { Link } from "react-router-dom";
-import PackageForm from "../components/PackageForm";
-import PackageList from "./PackageList";
 import Auth from "../utils/auth";
 import { QUERY_FULL_ME } from "../utils/queries";
 import AddBoxIcon from "@mui/icons-material/AddBox";
@@ -75,7 +73,7 @@ const Home = () => {
             </Grid>
             <Grid item>
               <Tooltip title="Your Packages">
-                <Link to={`/profile/packages`}>
+                <Link to={`/packages`}>
                   <DatasetIcon sx={{ fontSize: 50, color: "#4db6ac" }} />
                 </Link>
               </Tooltip>

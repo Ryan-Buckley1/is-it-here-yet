@@ -67,7 +67,7 @@ const PackageList = () => {
                         component="div"
                         className="tracking-number"
                       >
-                        <Link to={`/profile/package/${stuff.trackingNumber}`}>
+                        <Link to={`/package/${stuff.trackingNumber}`}>
                           {stuff.trackingNumber} <ArchiveIcon />
                         </Link>
                       </Typography>
@@ -106,7 +106,7 @@ const PackageList = () => {
                         component="div"
                         className="tracking-number"
                       >
-                        <Link to={`/profile/package/${stuff.trackingNumber}`}>
+                        <Link to={`/package/${stuff.trackingNumber}`}>
                           {stuff.trackingNumber} <UnarchiveIcon />
                         </Link>
                       </Typography>
