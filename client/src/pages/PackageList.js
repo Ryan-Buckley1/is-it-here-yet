@@ -11,7 +11,9 @@ import UnarchiveIcon from "@mui/icons-material/Unarchive";
 import CircularProgress from "@mui/material/CircularProgress";
 
 const PackageList = () => {
-  const { loading, data } = useQuery(QUERY_FULL_ME);
+  const { loading, data } = useQuery(QUERY_FULL_ME, {
+    fetchPolicy: "no-cache",
+  });
 
   const me = data?.me || {};
 
