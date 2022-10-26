@@ -68,14 +68,12 @@ function App() {
             <Route exact path="/" element={<Home />} />
             <Route exact path="/login" element={<Login />} />
             <Route exact path="/signup" element={<Signup />} />
-            <Route exact path="/profile">
-              <Route
-                path="/profile/package/:trackingNumber"
-                element={<SinglePackage />}
-              />
-              <Route exact path="/profile/packages" element={<PackageList />} />
-              <Route exact path="" element={<Profile />} />
-            </Route>
+            <Route exact path="/profile" element={<Profile />} />
+            <Route
+              path="/profile/package/:trackingNumber"
+              element={<SinglePackage />}
+            />
+            <Route exact path="/profile/packages" element={<PackageList />} />
             <Route path="*" element={<NoMatch />} />
           </Routes>
           <Footer />
