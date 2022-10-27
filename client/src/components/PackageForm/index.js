@@ -6,11 +6,9 @@ import CircularProgress from "@mui/material/CircularProgress";
 import Snackbar from "@mui/material/Snackbar";
 import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
-import { useNavigate } from "react-router-dom";
 import { Button, TextField } from "@mui/material";
 
 const PackageForm = () => {
-  const navigate = useNavigate();
   const [trackingState, setTrackingState] = useState("");
   const [open, setOpen] = useState(false);
 
@@ -77,7 +75,9 @@ const PackageForm = () => {
             onChange={handleChange}
           />
           {loading ? (
-            <CircularProgress className="loading" />
+            <div className="loading">
+              <CircularProgress />
+            </div>
           ) : (
             <Button
               variant="contained"

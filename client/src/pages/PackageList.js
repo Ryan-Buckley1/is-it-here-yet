@@ -16,6 +16,7 @@ const PackageList = () => {
   });
 
   const me = data?.me || {};
+  console.log(me.packages);
 
   if (loading) {
     return (

@@ -144,8 +144,8 @@ const SinglePackage = () => {
               </div>
 
               {UpdateLoading ? (
-                <div>
-                  <CircularProgress color="success" />
+                <div className="loading">
+                  <CircularProgress />
                 </div>
               ) : (
                 <Grid
