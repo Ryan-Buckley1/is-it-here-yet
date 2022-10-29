@@ -91,6 +91,15 @@ const Home = () => {
           <Grid item>
             <h2> Welcome to Is It Here Yet!</h2>
           </Grid>
+          <Grid item>
+            <h2 className="intro">
+              <Button variant="contained" color="secondary">
+                <Link className="button-txt" to={`/signup`}>
+                  Click here to get started!
+                </Link>
+              </Button>
+            </h2>
+          </Grid>
           <Grid item className="box-pic-cont">
             <img
               src={delTrucks}
@@ -116,13 +125,6 @@ const Home = () => {
               and we will display all of the information you will need to know
               when it will be there!
             </p>
-          </Grid>
-          <Grid item>
-            <h2 className="intro">
-              <Button>
-                <Link to={`/signup`}> Click here to get started!</Link>
-              </Button>
-            </h2>
           </Grid>
         </Grid>
       )}
