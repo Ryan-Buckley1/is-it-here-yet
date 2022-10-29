@@ -8,7 +8,7 @@ import DatasetIcon from "@mui/icons-material/Dataset";
 
 import delTrucks from "../assets/images/delivery-trucks.webp";
 import driver from "../assets/images/driver.png";
-import { Grid, Tooltip } from "@mui/material";
+import { Button, Grid, Tooltip } from "@mui/material";
 
 const Home = () => {
   const { loading, data } = useQuery(QUERY_FULL_ME);
@@ -118,9 +118,11 @@ const Home = () => {
             </p>
           </Grid>
           <Grid item>
-            <p className="intro">
-              <Link to={`/signup`}> Click here to get started!</Link>
-            </p>
+            <h2 className="intro">
+              <Button>
+                <Link to={`/signup`}> Click here to get started!</Link>
+              </Button>
+            </h2>
           </Grid>
         </Grid>
       )}
