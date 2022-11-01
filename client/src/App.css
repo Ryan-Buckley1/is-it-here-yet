@@ -107,7 +107,7 @@ width: 25vw
 
 /* HEADER  */
 
-header {
+.header {
   background-image:url(./assets/images/buncha-boxes.jpg);
   background-size: cover;
   width: 100vw;
