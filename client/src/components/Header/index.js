@@ -82,7 +82,38 @@ const Header = () => {
           </div>{" "}
         </header>
       ) : (
-        <header className="header-not-loggedin"></header>
+        <header className="header-not-loggedin">
+          <div className="header-bar">
+            <Link to={"/"}>
+              <h1 className="title"> Is It Here Yet?</h1>
+            </Link>
+            <nav className="what-to-do">
+              <Button
+                color="primary"
+                variant="contained"
+                id="menu-button"
+                aria-controls={open ? "basic-menu" : undefined}
+                aria-haspopup="true"
+                aria-expanded={open ? "true" : undefined}
+                onClick={handleClick}
+              >
+                What to do
+              </Button>
+              <Menu
+                id="basic-menu"
+                anchorEl={anchorEl}
+                open={open}
+                onClose={handleClose}
+                MenuListProps={{
+                  "aria-labelledby": "basic-button",
+                }}
+              >
+                <MenuItem onClick={handleLogIn}>Login</MenuItem>
+                <MenuItem onClick={handleSignUp}>Sign Up</MenuItem>
+              </Menu>
+            </nav>
+          </div>
+        </header>
       )}
     </>
   );
