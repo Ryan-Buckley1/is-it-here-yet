@@ -6,6 +6,10 @@ import { QUERY_FULL_ME } from "../utils/queries";
 import AddBoxIcon from "@mui/icons-material/AddBox";
 import DatasetIcon from "@mui/icons-material/Dataset";
 
+import KeyboardIcon from "@mui/icons-material/Keyboard";
+import AccountBoxIcon from "@mui/icons-material/AccountBox";
+import LocalShippingIcon from "@mui/icons-material/LocalShipping";
+
 import delTrucks from "../assets/images/delivery-trucks.webp";
 import driver from "../assets/images/driver.png";
 import { Button, Grid, Tooltip } from "@mui/material";
@@ -89,7 +93,7 @@ const Home = () => {
           className="notLoggedIn"
         >
           <Grid item>
-            <h2> Welcome to Is It Here Yet!</h2>
+            <h1 className="home-title"> Welcome to Is It Here Yet!</h1>
           </Grid>
           <Grid item>
             <h2 className="intro">
@@ -107,24 +111,24 @@ const Home = () => {
               alt="Bunch of boxes"
             ></img>
           </Grid>
-          <Grid item>
-            <p className="intro">
-              You can use this app to keep track of all of your UPS, Fedex, and
-              USPS packages!{" "}
-            </p>
-          </Grid>
-          <Grid item>
-            <p className="intro">
-              Instead of going to each site to see when it will get delivered,
-              why not let us do it for you?!
-            </p>
-          </Grid>
-          <Grid item>
-            <p className="intro">
-              To use it, please sign up or log in and enter a tracking number
-              and we will display all of the information you will need to know
-              when it will be there!
-            </p>
+          <Grid item className="how-it-works">
+            <h3>Heres how it works:</h3>
+            <ol className="how-it-works-list">
+              <li>
+                <Link to={"/signup"}>
+                  {" "}
+                  <AccountBoxIcon /> Create an account
+                </Link>
+              </li>
+              <li>
+                {" "}
+                <KeyboardIcon /> Enter your tracking numbers
+              </li>
+              <li>
+                {" "}
+                <LocalShippingIcon /> See when your packages will be there!
+              </li>
+            </ol>
           </Grid>
         </Grid>
       )}

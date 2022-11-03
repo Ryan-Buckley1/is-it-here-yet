@@ -87,6 +87,7 @@ const Header = () => {
             <Link to={"/"}>
               <h1 className="title"> Is It Here Yet?</h1>
             </Link>
+
             <nav className="what-to-do">
               <Button
                 color="primary"
@@ -112,6 +113,15 @@ const Header = () => {
                 <MenuItem onClick={handleSignUp}>Sign Up</MenuItem>
               </Menu>
             </nav>
+          </div>
+          <div className="header-box">
+            <div className="header-info">
+              <h2>Wondering where your package is?</h2>
+              <h4>
+                We can make it easier for you! We can keep all of your tracking
+                numbers in one easy place!
+              </h4>
+            </div>
           </div>
         </header>
       )}

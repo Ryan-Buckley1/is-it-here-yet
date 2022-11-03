@@ -91,6 +91,10 @@ const resolvers = {
       }
       throw new AuthenticationError("You need to be logged in!");
     },
+    examplePackage: async (parent, { trackingNumber }, context) => {
+      const packageData = await trackingScraper(trackingNumber);
+      return packageData;
+    },
     removePackage: async (parent, { trackingNumber }, context) => {
       if (context.user) {
         const deletedPackage = await Package.findOneAndDelete({
