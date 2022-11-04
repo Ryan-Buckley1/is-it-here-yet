@@ -19,20 +19,30 @@ a {
 
 /* HOME PAGE  */
 
+.sample-form {
+  background-color: whitesmoke;
+  padding: 5px;
+  border: 2px solid #4db6ac;
+}
+
 .driver {
   max-height: 50vh;
 }
 
 .notLoggedIn {
   padding: 0 5% 0 5%;
-
+  background-image: url('../src/assets/images/delivery-trucks.webp');
+background-repeat: no-repeat;
+background-position: center;
+background-size: 100%;
 }
 
 .how-it-works {
+
   font-size: 40px;
-  padding: 5px 5px 5px 5px;
+  padding: 5px 15px 5px 15px;
   border: 5px solid #4db6ac;
-  background-color: #71f7e9;
+  background-color: rgb(113, 247, 233, 0.6);
 }
 
 

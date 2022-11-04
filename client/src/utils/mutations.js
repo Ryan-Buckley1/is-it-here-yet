@@ -24,6 +24,18 @@ export const ADD_USER = gql`
   }
 `;
 
+export const EXAMPLE_PACKAGE = gql`
+  mutation examplePackage($trackingNumber: String!) {
+    examplePackage(trackingNumber: $trackingNumber) {
+      trackingNumber
+      urlToTracking
+      expectedDelDate
+      carrier
+      username
+    }
+  }
+`;
+
 export const REMOVE_PACKAGE = gql`
   mutation removePackage($trackingNumber: String!) {
     removePackage(trackingNumber: $trackingNumber) {

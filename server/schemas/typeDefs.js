@@ -30,6 +30,7 @@ const typeDefs = gql`
 
   type Mutation {
     login(email: String, password: String): Auth
+    examplePackage(trackingNumber: String): Package
     addUser(username: String!, email: String!, password: String!): Auth
     addPackage(trackingNumber: String, username: String): Package
     removePackage(trackingNumber: String!): Package

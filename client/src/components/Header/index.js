@@ -47,84 +47,71 @@ const Header = () => {
 
   return (
     <>
-      {loggedIn ? (
-        <header className="header">
-          <div className="header-bar">
-            <Link to="/">
-              <h1 className="title">Is It Here Yet?</h1>
-            </Link>
-            <nav className="what-to-do">
-              <Button
-                color="primary"
-                variant="contained"
-                id="menu-button"
-                aria-controls={open ? "basic-menu" : undefined}
-                aria-haspopup="true"
-                aria-expanded={open ? "true" : undefined}
-                onClick={handleClick}
-              >
-                What to do
-              </Button>
-              <Menu
-                id="basic-menu"
-                anchorEl={anchorEl}
-                open={open}
-                onClose={handleClose}
-                MenuListProps={{
-                  "aria-labelledby": "basic-button",
-                }}
-              >
-                <MenuItem onClick={handleAddPackage}>Add A package</MenuItem>
-                <MenuItem onClick={handleAllPackage}>See All Packages</MenuItem>
-                <MenuItem onClick={logout}>Logout</MenuItem>
-              </Menu>
-            </nav>{" "}
-          </div>{" "}
-        </header>
-      ) : (
-        <header className="header-not-loggedin">
-          <div className="header-bar">
-            <Link to={"/"}>
-              <h1 className="title"> Is It Here Yet?</h1>
-            </Link>
+      <header className="header">
+        <div className="header-bar">
+          <Link to="/">
+            <h1 className="title">Is It Here Yet?</h1>
+          </Link>
 
-            <nav className="what-to-do">
-              <Button
-                color="primary"
-                variant="contained"
-                id="menu-button"
-                aria-controls={open ? "basic-menu" : undefined}
-                aria-haspopup="true"
-                aria-expanded={open ? "true" : undefined}
-                onClick={handleClick}
-              >
-                What to do
-              </Button>
-              <Menu
-                id="basic-menu"
-                anchorEl={anchorEl}
-                open={open}
-                onClose={handleClose}
-                MenuListProps={{
-                  "aria-labelledby": "basic-button",
-                }}
-              >
-                <MenuItem onClick={handleLogIn}>Login</MenuItem>
-                <MenuItem onClick={handleSignUp}>Sign Up</MenuItem>
-              </Menu>
-            </nav>
-          </div>
-          <div className="header-box">
-            <div className="header-info">
-              <h2>Wondering where your package is?</h2>
-              <h4>
-                We can make it easier for you! We can keep all of your tracking
-                numbers in one easy place!
-              </h4>
-            </div>
-          </div>
-        </header>
-      )}
+          <nav className="what-to-do">
+            {loggedIn ? (
+              <>
+                <Button
+                  color="primary"
+                  variant="contained"
+                  id="menu-button"
+                  aria-controls={open ? "basic-menu" : undefined}
+                  aria-haspopup="true"
+                  aria-expanded={open ? "true" : undefined}
+                  onClick={handleClick}
+                >
+                  What to do
+                </Button>
+                <Menu
+                  id="basic-menu"
+                  anchorEl={anchorEl}
+                  open={open}
+                  onClose={handleClose}
+                  MenuListProps={{
+                    "aria-labelledby": "basic-button",
+                  }}
+                >
+                  <MenuItem onClick={handleAddPackage}>Add A package</MenuItem>
+                  <MenuItem onClick={handleAllPackage}>
+                    See All Packages
+                  </MenuItem>
+                  <MenuItem onClick={logout}>Logout</MenuItem>
+                </Menu>
+              </>
+            ) : (
+              <>
+                <Button
+                  variant="contained"
+                  id="menu-button"
+                  aria-controls={open ? "basic-menu" : undefined}
+                  aria-haspopup="true"
+                  aria-expanded={open ? "true" : undefined}
+                  onClick={handleClick}
+                >
+                  Get Tracking
+                </Button>
+                <Menu
+                  id="basic-menu"
+                  anchorEl={anchorEl}
+                  open={open}
+                  onClose={handleClose}
+                  MenuListProps={{
+                    "aria-labelledby": "basic-button",
+                  }}
+                >
+                  <MenuItem onClick={handleLogIn}>Log In</MenuItem>
+                  <MenuItem onClick={handleSignUp}>Sign Up</MenuItem>
+                </Menu>
+              </>
+            )}
+          </nav>
+        </div>
+      </header>
     </>
   );
 };

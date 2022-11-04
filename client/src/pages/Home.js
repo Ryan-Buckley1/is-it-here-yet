@@ -3,14 +3,15 @@ import React from "react";
 import { Link } from "react-router-dom";
 import Auth from "../utils/auth";
 import { QUERY_FULL_ME } from "../utils/queries";
+
+import SampleForm from "../components/SampleForm";
+
 import AddBoxIcon from "@mui/icons-material/AddBox";
 import DatasetIcon from "@mui/icons-material/Dataset";
-
 import KeyboardIcon from "@mui/icons-material/Keyboard";
 import AccountBoxIcon from "@mui/icons-material/AccountBox";
 import LocalShippingIcon from "@mui/icons-material/LocalShipping";
 
-import delTrucks from "../assets/images/delivery-trucks.webp";
 import driver from "../assets/images/driver.png";
 import { Button, Grid, Tooltip } from "@mui/material";
 
@@ -91,9 +92,13 @@ const Home = () => {
           justifyContent="center"
           alignItems="center"
           className="notLoggedIn"
+          spacing={1}
         >
           <Grid item>
             <h1 className="home-title"> Welcome to Is It Here Yet!</h1>
+          </Grid>
+          <Grid item>
+            <SampleForm />
           </Grid>
           <Grid item>
             <h2 className="intro">
@@ -103,13 +108,6 @@ const Home = () => {
                 </Link>
               </Button>
             </h2>
-          </Grid>
-          <Grid item className="box-pic-cont">
-            <img
-              src={delTrucks}
-              className="boxes-pic"
-              alt="Bunch of boxes"
-            ></img>
           </Grid>
           <Grid item className="how-it-works">
             <h3>Heres how it works:</h3>
