@@ -33,11 +33,8 @@ https://opensource.org/licenses/MIT
 
 ## Contributing
 
-None
+I was the sole developer on this project
 
-## Tests
-
-None
 
 ## Questions
 
