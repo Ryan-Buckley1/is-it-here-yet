@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useMutation } from "@apollo/client";
 import { ADD_PACKAGE } from "../../utils/mutations";
+import { useNavigate } from "react-router-dom";
 
 import CircularProgress from "@mui/material/CircularProgress";
 import Snackbar from "@mui/material/Snackbar";
@@ -11,6 +12,7 @@ import { Button, TextField } from "@mui/material";
 const PackageForm = () => {
   const [trackingState, setTrackingState] = useState("");
   const [open, setOpen] = useState(false);
+  const navigate = useNavigate();
 
   const [addPackage, { error, loading }] = useMutation(ADD_PACKAGE, {
     variables: { trackingNumber: trackingState },
@@ -27,6 +29,9 @@ const PackageForm = () => {
       await addPackage();
       setOpen(true);
       setTrackingState("");
+      setInterval(() => {
+        navigate("/packages");
+      }, 2000);
     } catch (e) {
       console.error(e);
     }
