@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 
-import { Button, TextField } from "@mui/material";
+import { Button, Grid, TextField } from "@mui/material";
+import { Link } from "react-router-dom";
 
 const SampleForm = () => {
   const [trackingState, setTrackingState] = useState("");
@@ -25,26 +26,38 @@ const SampleForm = () => {
     <div className="sample-form">
       <div>
         <form className="sample-tracking-form" onSubmit={handleFormSubmit}>
-          <TextField
-            required
-            className="trackingSubmit"
-            placeholder="Tracking Number"
-            name="trackingNumber"
-            id="trackingNumber"
-            value={trackingState}
-            onChange={handleChange}
-          />
-          <Button
-            variant="contained"
-            color="secondary"
-            className="submit-button"
-            type="submit"
-          >
-            Submit
-          </Button>
+          <Grid container direction="column" alignItems="center">
+            <Grid item>
+              <TextField
+                required
+                className="trackingSubmit"
+                placeholder="Tracking Number"
+                name="trackingNumber"
+                id="trackingNumber"
+                value={trackingState}
+                onChange={handleChange}
+              />
+            </Grid>
+            <Grid item>
+              <Button
+                variant="contained"
+                color="secondary"
+                className="submit-button"
+                type="submit"
+              >
+                Submit
+              </Button>
+            </Grid>
+          </Grid>
         </form>
       </div>
-      <div>{errorText && <h3 className="error">{errorText} </h3>}</div>
+      <div>
+        {errorText && (
+          <h3 className="error">
+            <Link to={"/signup"}>{errorText}</Link>{" "}
+          </h3>
+        )}
+      </div>
     </div>
   );
 };
