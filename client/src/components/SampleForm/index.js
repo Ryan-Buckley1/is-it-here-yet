@@ -30,7 +30,7 @@ const SampleForm = () => {
             <Grid item>
               <TextField
                 required
-                className="trackingSubmit"
+                className="sampleTrackingSubmit"
                 placeholder="Tracking Number"
                 name="trackingNumber"
                 id="trackingNumber"

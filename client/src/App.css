@@ -25,6 +25,7 @@ a {
   border: 2px solid #4db6ac;
 }
 
+
 .driver {
   max-height: 50vh;
 }
@@ -35,6 +36,7 @@ a {
 background-repeat: no-repeat;
 background-position: center;
 background-size: 100%;
+/* box-sizing: inherit; */
 }
 
 .how-it-works {
@@ -130,7 +132,7 @@ width: 25vw
 .header {
   background-image:url(./assets/images/buncha-boxes.jpg);
   background-size: cover;
-  width: 100vw;
+  /* width: 100vw; */
 }
 
 .header-not-loggedin {
@@ -208,6 +210,11 @@ width: 25vw
 .trackingSubmit {
   align-self: center;
   }
+
+.sampleTrackingSubmit {
+
+  width: inherit;
+}
 
 /* MEDIA QUERIES  */
 

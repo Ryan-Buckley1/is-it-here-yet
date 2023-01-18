@@ -97,7 +97,7 @@ const Home = () => {
           <Grid item>
             <h1 className="home-title"> Welcome to Is It Here Yet!</h1>
           </Grid>
-          <Grid item>
+          <Grid item className="example-form">
             <SampleForm />
           </Grid>
           <Grid item>
